@@ -71,7 +71,7 @@ const int kDefaultFontSize = 20;
 
 - (MTFont *)defaultFont
 {
-    return [self latinModernFontWithSize:kDefaultFontSize];
+    return [self xitsFontWithSize:kDefaultFontSize];
 }
 
 @end
