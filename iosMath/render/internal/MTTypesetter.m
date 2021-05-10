@@ -24,7 +24,6 @@ typedef NS_ENUM(int, MTInterElementSpaceType) {
     kMTSpaceNSThick,
 };
 
-
 NSArray* getInterElementSpaces() {
     static NSArray* interElementSpaceArray = nil;
     if (!interElementSpaceArray) {

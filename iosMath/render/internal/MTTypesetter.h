@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// For ADVANCED use only.
 @interface MTTypesetter : NSObject
 
+
+NSArray* getInterElementSpaces(void);
 /// Renders a MTMathList as a list of displays.
 + (MTMathListDisplay*) createLineForMathList:(MTMathList*) mathList font:(MTFont*) font style:(MTLineStyle) style;
 
