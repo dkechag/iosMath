@@ -15,6 +15,8 @@
 
 #pragma mark Inter Element Spacing
 
+NSArray* getInterElementSpaces(void);
+
 typedef NS_ENUM(int, MTInterElementSpaceType) {
     kMTSpaceInvalid = -1,
     kMTSpaceNone = 0,
@@ -24,7 +26,7 @@ typedef NS_ENUM(int, MTInterElementSpaceType) {
     kMTSpaceNSThick,
 };
 
-NSArray* getInterElementSpaces() {
+NSArray* getInterElementSpaces(void) {
     static NSArray* interElementSpaceArray = nil;
     if (!interElementSpaceArray) {
         interElementSpaceArray =

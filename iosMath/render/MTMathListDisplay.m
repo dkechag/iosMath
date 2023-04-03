@@ -19,26 +19,6 @@
 #import "MTFont+Internal.h"
 #import "MTMathListDisplayInternal.h"
 
-static BOOL isIos6Supported() {
-    static BOOL initialized = false;
-    static BOOL supported = false;
-    if (!initialized) {
-#if TARGET_OS_IPHONE
-        NSString *reqSysVer = @"6.0";
-        NSString *currSysVer = [UIDevice currentDevice].systemVersion;
-        
-        if ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending) {
-            supported = true;
-        }
-#else
-        supported = true;
-#endif
-        
-        initialized = true;
-    }
-    return supported;
-}
-
 #pragma mark MTDisplay
 
 @implementation MTDisplay
@@ -102,16 +82,11 @@ static BOOL isIos6Supported() {
         _atoms = atoms;
         // We can't use typographic bounds here as the ascent and descent returned are for the font and not for the line.
         self.width = CTLineGetTypographicBounds(_line, NULL, NULL, NULL);
-        if (isIos6Supported()) {
-            CGRect bounds = CTLineGetBoundsWithOptions(_line, kCTLineBoundsUseGlyphPathBounds);
-            self.ascent = MAX(0, CGRectGetMaxY(bounds) - 0);
-            self.descent = MAX(0, 0 - CGRectGetMinY(bounds));
-            // TODO: Should we use this width vs the typographic width? They are slightly different. Don't know why.
-            // _width = CGRectGetMaxX(bounds);
-        } else {
-            // Our own implementation of the ios6 function to get glyph path bounds.
-            [self computeDimensions:font];
-        }
+        CGRect bounds = CTLineGetBoundsWithOptions(_line, kCTLineBoundsUseGlyphPathBounds);
+        self.ascent = MAX(0, CGRectGetMaxY(bounds) - 0);
+        self.descent = MAX(0, 0 - CGRectGetMinY(bounds));
+        // TODO: Should we use this width vs the typographic width? They are slightly different. Don't know why.
+        // _width = CGRectGetMaxX(bounds);
     }
     return self;
 }
